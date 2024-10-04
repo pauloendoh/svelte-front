@@ -39,6 +39,31 @@ paths:
                   - id
                   - title
                   - body
+    get:
+      tags:
+        - posts
+      parameters: []
+      operationId: getAllPosts
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    title:
+                      type: string
+                    body:
+                      type: string
+                  required:
+                    - id
+                    - title
+                    - body
   /posts/{id}:
     get:
       summary: Get a post by id
@@ -67,22 +92,6 @@ paths:
                     type: string
                 required:
                   - id
-                  - title
-                  - body
-        '202':
-          description: '202'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                  title:
-                    type: string
-                  body:
-                    type: string
-                required:
                   - title
                   - body
         '404':

@@ -6,7 +6,7 @@ export default defineConfig({
 		input: './src/swagger.yaml',
 		output: {
 			mode: 'tags-split',
-			target: './src/orval/endpoints',
+			target: './src/orval',
 			baseUrl: myEnvs.API_URL
 		}
 	},
@@ -14,7 +14,7 @@ export default defineConfig({
 		input: './src/swagger.yaml',
 		output: {
 			mode: 'tags-split',
-			target: './src/orval/endpoints',
+			target: './src/orval',
 			client: 'zod',
 			fileExtension: '.zod.ts',
 			override: {

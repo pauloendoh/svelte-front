@@ -1,38 +1,35 @@
 <script lang="ts">
-	import { arrow, autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
-	import { popup, storePopup, type PopupSettings } from '@skeletonlabs/skeleton';
+	import { useAllPostsQuery } from '$lib/svelte-query/domains/post/useAllPostsQuery';
+	import { useCreatePostMutation } from '$lib/svelte-query/domains/post/useCreatePostMutation';
 
-	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
+	const allPostsQuery = useAllPostsQuery();
 
-	let text = 'Hello World!';
-
-	let user: User = {
-		id: 1,
-		name: 'lmao',
-		email: ''
-	};
-
-	const popupFeatured: PopupSettings = {
-		// Represents the type of event that opens/closed the popup
-		event: 'hover',
-		// Matches the data-popup value on your popup element
-		target: 'popupFeatured',
-		// Defines which side of your trigger the popup will appear
-		placement: 'bottom'
-	};
+	const createPostMutation = useCreatePostMutation();
 </script>
 
 <div class="container mx-auto flex h-full items-center justify-center">
 	<div class="flex flex-col items-center space-y-10 text-center">
 		<h2 class="h2">Welcome to Skeleton.</h2>
 
-		<button class="variant-filled btn" use:popup={popupFeatured}>Show Popup</button>
-		<div class="card w-72 p-4 shadow-xl" data-popup="popupFeatured">
-			<div><p>Demo Content</p></div>
-			<div class="bg-surface-100-800-token arrow" />
-		</div>
+		{#if $allPostsQuery.isLoading}
+			<p>Loading...</p>
+		{:else if $allPostsQuery.isError}
+			<p>Error: {$allPostsQuery.error.message}</p>
+		{:else if $allPostsQuery.isSuccess}
+			{#each $allPostsQuery.data as post}
+				<p>{post.id}</p>
+			{/each}
+		{/if}
 
-		<!-- / -->
+		<button
+			on:click={() =>
+				$createPostMutation.mutate({
+					body: 'lmao',
+					title: 'lol'
+				})}
+			class="variant-filled btn">Create post</button
+		>
+
 		<div class="flex justify-center space-x-2">
 			<a class="variant-filled btn" href="https://skeleton.dev/" target="_blank" rel="noreferrer">
 				Launch Documentation
@@ -80,7 +77,7 @@
 		}
 	}
 
-  .show-popup-btn{
-    font-size: 12px;
-  }
+	.show-popup-btn {
+		font-size: 12px;
+	}
 </style>

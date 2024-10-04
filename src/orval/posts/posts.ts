@@ -12,8 +12,8 @@ import type {
 import type {
   CreatePost201,
   CreatePostBody,
-  GetPost200,
-  GetPost202
+  GetAllPosts200Item,
+  GetPost200
 } from '../myAPI.schemas'
 
 
@@ -29,10 +29,17 @@ export const createPost = <TData = AxiosResponse<CreatePost201>>(
       createPostBody,options
     );
   }
+export const getAllPosts = <TData = AxiosResponse<GetAllPosts200Item[]>>(
+     options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `http://localhost:3123/posts`,options
+    );
+  }
 /**
  * @summary Get a post by id
  */
-export const getPost = <TData = AxiosResponse<GetPost200 | GetPost202>>(
+export const getPost = <TData = AxiosResponse<GetPost200>>(
     id: string, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.get(
@@ -40,4 +47,5 @@ export const getPost = <TData = AxiosResponse<GetPost200 | GetPost202>>(
     );
   }
 export type CreatePostResult = AxiosResponse<CreatePost201>
-export type GetPostResult = AxiosResponse<GetPost200 | GetPost202>
+export type GetAllPostsResult = AxiosResponse<GetAllPosts200Item[]>
+export type GetPostResult = AxiosResponse<GetPost200>

@@ -11,6 +11,9 @@ importers:
       '@floating-ui/dom':
         specifier: 1.6.11
         version: 1.6.11
+      '@tanstack/svelte-query':
+        specifier: ^5.59.0
+        version: 5.59.0(svelte@4.2.19)
       axios:
         specifier: ^1.7.7
         version: 1.7.7
@@ -914,6 +917,14 @@ packages:
     resolution: {integrity: sha512-AqhlCXl+8grUz8uqExv5OTtgpjuVIwFTSXTrh8y9/pw6q2ek7fJ+Y8ZEVw7EB2DCcuCOtEjf9w3+J3rzts01uA==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders || >=4.0.0-alpha.20'
+
+  '@tanstack/query-core@5.59.0':
+    resolution: {integrity: sha512-WGD8uIhX6/deH/tkZqPNcRyAhDUqs729bWKoByYHSogcshXfFbppOdTER5+qY7mFvu8KEFJwT0nxr8RfPTVh0Q==}
+
+  '@tanstack/svelte-query@5.59.0':
+    resolution: {integrity: sha512-KjRQg6me2LSNvENUJalvLjTfFG2kmWRd7K+hFyPd2CysfqFAoyKvXnzLaUfJgtDSS4cobLlqMECZQ7kD37VGhw==}
+    peerDependencies:
+      svelte: ^3.54.0 || ^4.0.0 || ^5.0.0-next.0
 
   '@tsconfig/node10@1.0.11':
     resolution: {integrity: sha512-DcRjDCujK/kCk/cUe8Xz8ZSpm8mS3mNNpta+jGCA6USEDfktlNvm1+IuZ9eTcDbNk41BHwpHHeW+N1lKCz4zOw==}
@@ -3652,6 +3663,13 @@ snapshots:
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.4.13(ts-node@10.9.2(@types/node@22.7.2)(typescript@5.6.2))
+
+  '@tanstack/query-core@5.59.0': {}
+
+  '@tanstack/svelte-query@5.59.0(svelte@4.2.19)':
+    dependencies:
+      '@tanstack/query-core': 5.59.0
+      svelte: 4.2.19
 
   '@tsconfig/node10@1.0.11':
     optional: true

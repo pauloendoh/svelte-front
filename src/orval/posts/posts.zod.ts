@@ -22,6 +22,13 @@ export const createPost201Response = zod.object({
   "body": zod.string()
 })
 
+export const getAllPosts200ResponseItem = zod.object({
+  "id": zod.string(),
+  "title": zod.string(),
+  "body": zod.string()
+})
+export const getAllPosts200Response = zod.array(getAllPosts200ResponseItem)
+
 /**
  * @summary Get a post by id
  */
@@ -31,12 +38,6 @@ export const getPostParams = zod.object({
 
 export const getPost200Response = zod.object({
   "id": zod.string(),
-  "title": zod.string(),
-  "body": zod.string()
-})
-
-export const getPost202Response = zod.object({
-  "id": zod.string().optional(),
   "title": zod.string(),
   "body": zod.string()
 })

@@ -4,13 +4,13 @@
  * My API
  * OpenAPI spec version: 1.0.0
  */
-export type GetPost202 = {
+export type GetPost200 = {
   body: string;
-  id?: string;
+  id: string;
   title: string;
 };
 
-export type GetPost200 = {
+export type GetAllPosts200Item = {
   body: string;
   id: string;
   title: string;
