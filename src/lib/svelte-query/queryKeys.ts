@@ -1,8 +1,8 @@
 import type { QueryKey } from '@tanstack/svelte-query';
 
 export const queryKeys = {
-	posts: ['posts'],
-	postId: (id: string) => ['post', id]
+	users: ['users'],
+	userId: (id: string) => ['users', id]
 	// comments: () => ['comments'],
 	// commentId: (id: string) => ['comment', id],
 	// todos: () => ['todos']

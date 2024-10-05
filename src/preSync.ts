@@ -1,0 +1,30 @@
+import { dirname } from 'node:path'
+
+import { fileURLToPath } from 'node:url'
+
+import axios from 'axios'
+import fs from 'fs'
+import { myEnvs } from './myEnvs'
+
+const preSync = async () => {
+  try {
+    const response = await axios.get<string>(myEnvs.API_URL + '/swagger.yaml')
+
+    // https://stackoverflow.com/a/50052194
+    const __dirname = dirname(fileURLToPath(import.meta.url))
+    fs.writeFileSync(__dirname + '/swagger.yaml', response.data)
+
+    console.log(
+      '✅ Swagger file has been fetched and saved to /src/swagger.yaml',
+    )
+
+    fs.rmdirSync(__dirname + '/orval', { recursive: true })
+
+    console.log('✅ Deleted orval files.')
+    console.log('🔃 Generating orval files...')
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+preSync()

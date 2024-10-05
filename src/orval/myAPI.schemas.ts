@@ -4,26 +4,39 @@
  * My API
  * OpenAPI spec version: 1.0.0
  */
-export type GetPost200 = {
-  body: string;
-  id: string;
-  title: string;
+export type SignUp409 = typeof SignUp409[keyof typeof SignUp409];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const SignUp409 = {
+  The_email_address_you_entered_is_already_in_use_Please_use_a_different_email_address: 'The email address you entered is already in use. Please use a different email address.',
+  The_username_you_entered_is_already_in_use_Please_use_a_different_username: 'The username you entered is already in use. Please use a different username.',
+} as const;
+
+export type SignUp201 = {
+  email: string;
+  id: number;
+  token: string;
+  tokenExpiresAt: string;
+  username: string;
 };
 
-export type GetAllPosts200Item = {
-  body: string;
-  id: string;
-  title: string;
+export type SignUpBody = {
+  email: string;
+  /** @minLength 6 */
+  password1: string;
+  /** @minLength 6 */
+  password2: string;
+  /**
+   * @minLength 3
+   * @maxLength 16
+   */
+  username: string;
 };
 
-export type CreatePost201 = {
-  body: string;
-  id: string;
-  title: string;
-};
-
-export type CreatePostBody = {
-  body: string;
-  title: string;
+export type GetAllUsers200Item = {
+  email: string;
+  id: number;
+  username: string;
 };
 

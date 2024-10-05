@@ -1,49 +1,12 @@
 openapi: 3.0.2
 paths:
-  /posts:
-    post:
-      summary: Create a post
-      tags:
-        - posts
-      parameters: []
-      operationId: createPost
-      requestBody:
-        description: Body
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                body:
-                  type: string
-              required:
-                - title
-                - body
-      responses:
-        '201':
-          description: '201'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                  title:
-                    type: string
-                  body:
-                    type: string
-                required:
-                  - id
-                  - title
-                  - body
+  /users:
     get:
+      summary: Get all users
       tags:
-        - posts
+        - users
       parameters: []
-      operationId: getAllPosts
+      operationId: getAllUsers
       responses:
         '200':
           description: '200'
@@ -55,53 +18,84 @@ paths:
                   type: object
                   properties:
                     id:
+                      type: number
+                    username:
                       type: string
-                    title:
-                      type: string
-                    body:
+                    email:
                       type: string
                   required:
                     - id
-                    - title
-                    - body
-  /posts/{id}:
-    get:
-      summary: Get a post by id
+                    - username
+                    - email
+  /sign-up:
+    post:
+      summary: Create user account
       tags:
-        - posts
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      operationId: getPost
+        - auth
+      parameters: []
+      operationId: signUp
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  minLength: 3
+                  maxLength: 16
+                email:
+                  type: string
+                  format: email
+                password1:
+                  type: string
+                  minLength: 6
+                password2:
+                  type: string
+                  minLength: 6
+              required:
+                - username
+                - email
+                - password1
+                - password2
       responses:
-        '200':
-          description: '200'
+        '201':
+          description: '201'
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   id:
+                    type: number
+                  username:
                     type: string
-                  title:
+                  email:
                     type: string
-                  body:
+                  token:
+                    type: string
+                  tokenExpiresAt:
                     type: string
                 required:
                   - id
-                  - title
-                  - body
-        '404':
-          description: '404'
+                  - username
+                  - email
+                  - token
+                  - tokenExpiresAt
+        '409':
+          description: '409'
           content:
             application/json:
               schema:
                 type: string
-                format: 'null'
-                nullable: true
+                enum:
+                  - >-
+                    The email address you entered is already in use. Please use
+                    a different email address.
+                  - >-
+                    The username you entered is already in use. Please use a
+                    different username.
 info:
   title: My API
   version: 1.0.0
