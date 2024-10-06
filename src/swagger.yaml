@@ -96,6 +96,89 @@ paths:
                   - >-
                     The username you entered is already in use. Please use a
                     different username.
+  /log-in:
+    post:
+      summary: Log in user
+      tags:
+        - auth
+      parameters: []
+      operationId: logIn
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usernameOrEmail:
+                  type: string
+                  minLength: 3
+                  maxLength: 16
+                password:
+                  type: string
+                  minLength: 6
+              required:
+                - usernameOrEmail
+                - password
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  username:
+                    type: string
+                  email:
+                    type: string
+                  token:
+                    type: string
+                  tokenExpiresAt:
+                    type: string
+                required:
+                  - id
+                  - username
+                  - email
+                  - token
+                  - tokenExpiresAt
+        '401':
+          description: '401'
+          content:
+            application/json:
+              schema:
+                type: string
+                enum:
+                  - I
+                  - 'n'
+                  - v
+                  - a
+                  - l
+                  - i
+                  - d
+                  - ' '
+                  - u
+                  - s
+                  - e
+                  - r
+                  - 'n'
+                  - a
+                  - m
+                  - e
+                  - ' '
+                  - o
+                  - r
+                  - ' '
+                  - p
+                  - a
+                  - s
+                  - s
+                  - w
+                  - o
+                  - r
+                  - d
 info:
   title: My API
   version: 1.0.0

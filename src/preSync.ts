@@ -18,9 +18,6 @@ const preSync = async () => {
       '✅ Swagger file has been fetched and saved to /src/swagger.yaml',
     )
 
-    fs.rmdirSync(__dirname + '/orval', { recursive: true })
-
-    console.log('✅ Deleted orval files.')
     console.log('🔃 Generating orval files...')
   } catch (e) {
     console.error(e)

@@ -35,3 +35,27 @@ export const signUp201Response = zod.object({
 
 export const signUp409Response = zod.enum(['The email address you entered is already in use. Please use a different email address.', 'The username you entered is already in use. Please use a different username.'])
 
+/**
+ * @summary Log in user
+ */
+export const logInBodyUsernameOrEmailMin = 3;
+
+export const logInBodyUsernameOrEmailMax = 16;
+export const logInBodyPasswordMin = 6;
+
+
+export const logInBody = zod.object({
+  "usernameOrEmail": zod.string().min(logInBodyUsernameOrEmailMin).max(logInBodyUsernameOrEmailMax),
+  "password": zod.string().min(logInBodyPasswordMin)
+})
+
+export const logIn200Response = zod.object({
+  "id": zod.number(),
+  "username": zod.string(),
+  "email": zod.string(),
+  "token": zod.string(),
+  "tokenExpiresAt": zod.string()
+})
+
+export const logIn401Response = zod.enum(['I', 'n', 'v', 'a', 'l', 'i', 'd', ' ', 'u', 's', 'e', 'r', 'n', 'a', 'm', 'e', ' ', 'o', 'r', ' ', 'p', 'a', 's', 's', 'w', 'o', 'r', 'd'])
+

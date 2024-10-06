@@ -4,6 +4,47 @@
  * My API
  * OpenAPI spec version: 1.0.0
  */
+export type LogIn401 = typeof LogIn401[keyof typeof LogIn401];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const LogIn401 = {
+  I: 'I',
+  n: 'n',
+  v: 'v',
+  a: 'a',
+  l: 'l',
+  i: 'i',
+  d: 'd',
+  ' ': ' ',
+  u: 'u',
+  s: 's',
+  e: 'e',
+  r: 'r',
+  m: 'm',
+  o: 'o',
+  p: 'p',
+  w: 'w',
+} as const;
+
+export type LogIn200 = {
+  email: string;
+  id: number;
+  token: string;
+  tokenExpiresAt: string;
+  username: string;
+};
+
+export type LogInBody = {
+  /** @minLength 6 */
+  password: string;
+  /**
+   * @minLength 3
+   * @maxLength 16
+   */
+  usernameOrEmail: string;
+};
+
 export type SignUp409 = typeof SignUp409[keyof typeof SignUp409];
 
 

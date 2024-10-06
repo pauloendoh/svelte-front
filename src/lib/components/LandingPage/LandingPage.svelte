@@ -6,7 +6,7 @@
 </script>
 
 <div class="container mx-auto flex h-full items-center justify-center">
-  <div class="flex flex-col items-center space-y-4 text-center">
+  <div class="flex flex-col items-center space-y-4">
     {#if $allUsersQuery.isLoading}
       <p>Loading...</p>
     {:else if $allUsersQuery.isError}
