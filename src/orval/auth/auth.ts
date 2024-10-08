@@ -10,8 +10,9 @@ import type {
   AxiosResponse
 } from 'axios'
 import type {
-  LogIn200,
-  LogInBody,
+  GetMe200,
+  SignIn200,
+  SignInBody,
   SignUp201,
   SignUpBody
 } from '../myAPI.schemas'
@@ -30,15 +31,26 @@ export const signUp = <TData = AxiosResponse<SignUp201>>(
     );
   }
 /**
- * @summary Log in user
+ * @summary Sign in user
  */
-export const logIn = <TData = AxiosResponse<LogIn200>>(
-    logInBody: LogInBody, options?: AxiosRequestConfig
+export const signIn = <TData = AxiosResponse<SignIn200>>(
+    signInBody: SignInBody, options?: AxiosRequestConfig
  ): Promise<TData> => {
     return axios.post(
-      `http://localhost:3123/log-in`,
-      logInBody,options
+      `http://localhost:3123/sign-in`,
+      signInBody,options
+    );
+  }
+/**
+ * @summary Get current user
+ */
+export const getMe = <TData = AxiosResponse<GetMe200>>(
+     options?: AxiosRequestConfig
+ ): Promise<TData> => {
+    return axios.get(
+      `http://localhost:3123/me`,options
     );
   }
 export type SignUpResult = AxiosResponse<SignUp201>
-export type LogInResult = AxiosResponse<LogIn200>
+export type SignInResult = AxiosResponse<SignIn200>
+export type GetMeResult = AxiosResponse<GetMe200>

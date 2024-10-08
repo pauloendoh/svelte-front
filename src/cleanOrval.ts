@@ -15,5 +15,3 @@ const cleanOrval = async () => {
     console.error(e)
   }
 }
-
-cleanOrval()

@@ -1,20 +1,26 @@
 <script lang="ts">
-  import { useAllUsersQuery } from '$lib/svelte-query/domains/user/useAllUsersQuery'
+  import { useLogout } from '$lib/hooks/useLogout'
+  import { useAuthUserStore } from '$lib/stores/useAuthUserStore'
   import AuthForm from './AuthForm/AuthForm.svelte'
 
-  const allUsersQuery = useAllUsersQuery()
+  let authUser = useAuthUserStore()
+  let logout = useLogout()
 </script>
 
 <div class="container mx-auto flex h-full items-center justify-center">
   <div class="flex flex-col items-center space-y-4">
-    {#if $allUsersQuery.isLoading}
-      <p>Loading...</p>
-    {:else if $allUsersQuery.isError}
-      <p>Error: {$allUsersQuery.error.message}</p>
-    {:else if $allUsersQuery.isSuccess}
-      {#each $allUsersQuery.data as user}
-        <p>{user.email}</p>
-      {/each}
+    {JSON.stringify({
+      username: $authUser?.username,
+    })}
+    {#if $authUser}
+      <button
+        class="variant-filled btn"
+        on:click={() => {
+          logout()
+        }}
+      >
+        Sign Out
+      </button>
     {/if}
 
     <!-- <button

@@ -11,6 +11,10 @@ import {
 /**
  * @summary Create user account
  */
+export const signUpHeader = zod.object({
+  "x-custom-header": zod.string()
+})
+
 export const signUpBodyUsernameMin = 3;
 
 export const signUpBodyUsernameMax = 16;
@@ -33,23 +37,25 @@ export const signUp201Response = zod.object({
   "tokenExpiresAt": zod.string()
 })
 
+export const signUp404Response = zod.enum(['Not found'])
+
 export const signUp409Response = zod.enum(['The email address you entered is already in use. Please use a different email address.', 'The username you entered is already in use. Please use a different username.'])
 
 /**
- * @summary Log in user
+ * @summary Sign in user
  */
-export const logInBodyUsernameOrEmailMin = 3;
+export const signInBodyUsernameOrEmailMin = 3;
 
-export const logInBodyUsernameOrEmailMax = 16;
-export const logInBodyPasswordMin = 6;
+export const signInBodyUsernameOrEmailMax = 16;
+export const signInBodyPasswordMin = 6;
 
 
-export const logInBody = zod.object({
-  "usernameOrEmail": zod.string().min(logInBodyUsernameOrEmailMin).max(logInBodyUsernameOrEmailMax),
-  "password": zod.string().min(logInBodyPasswordMin)
+export const signInBody = zod.object({
+  "usernameOrEmail": zod.string().min(signInBodyUsernameOrEmailMin).max(signInBodyUsernameOrEmailMax),
+  "password": zod.string().min(signInBodyPasswordMin)
 })
 
-export const logIn200Response = zod.object({
+export const signIn200Response = zod.object({
   "id": zod.number(),
   "username": zod.string(),
   "email": zod.string(),
@@ -57,5 +63,16 @@ export const logIn200Response = zod.object({
   "tokenExpiresAt": zod.string()
 })
 
-export const logIn401Response = zod.enum(['I', 'n', 'v', 'a', 'l', 'i', 'd', ' ', 'u', 's', 'e', 'r', 'n', 'a', 'm', 'e', ' ', 'o', 'r', ' ', 'p', 'a', 's', 's', 'w', 'o', 'r', 'd'])
+export const signIn400Response = zod.enum(['Invalid username, email, or password.'])
+
+/**
+ * @summary Get current user
+ */
+export const getMe200Response = zod.object({
+  "id": zod.number(),
+  "username": zod.string(),
+  "email": zod.string(),
+  "token": zod.string(),
+  "tokenExpiresAt": zod.string()
+})
 

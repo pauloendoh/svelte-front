@@ -4,30 +4,7 @@
  * My API
  * OpenAPI spec version: 1.0.0
  */
-export type LogIn401 = typeof LogIn401[keyof typeof LogIn401];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const LogIn401 = {
-  I: 'I',
-  n: 'n',
-  v: 'v',
-  a: 'a',
-  l: 'l',
-  i: 'i',
-  d: 'd',
-  ' ': ' ',
-  u: 'u',
-  s: 's',
-  e: 'e',
-  r: 'r',
-  m: 'm',
-  o: 'o',
-  p: 'p',
-  w: 'w',
-} as const;
-
-export type LogIn200 = {
+export type GetMe200 = {
   email: string;
   id: number;
   token: string;
@@ -35,7 +12,23 @@ export type LogIn200 = {
   username: string;
 };
 
-export type LogInBody = {
+export type SignIn400 = typeof SignIn400[keyof typeof SignIn400];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const SignIn400 = {
+  'Invalid_username,_email,_or_password': 'Invalid username, email, or password.',
+} as const;
+
+export type SignIn200 = {
+  email: string;
+  id: number;
+  token: string;
+  tokenExpiresAt: string;
+  username: string;
+};
+
+export type SignInBody = {
   /** @minLength 6 */
   password: string;
   /**
@@ -52,6 +45,14 @@ export type SignUp409 = typeof SignUp409[keyof typeof SignUp409];
 export const SignUp409 = {
   The_email_address_you_entered_is_already_in_use_Please_use_a_different_email_address: 'The email address you entered is already in use. Please use a different email address.',
   The_username_you_entered_is_already_in_use_Please_use_a_different_username: 'The username you entered is already in use. Please use a different username.',
+} as const;
+
+export type SignUp404 = typeof SignUp404[keyof typeof SignUp404];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const SignUp404 = {
+  Not_found: 'Not found',
 } as const;
 
 export type SignUp201 = {

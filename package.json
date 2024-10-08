@@ -12,7 +12,8 @@
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
     "sync": "npx tsx ./src/preSync.ts && npx orval --config ./orval.config.ts && check",
-    "sync:clean": "npx tsx ./src/cleanOrval.ts && npm run sync"
+    "sync:clean": "npx tsx ./src/cleanOrval.ts && npm run sync",
+    "sync:zodios": "openapi-zod-client \"./src/swagger.yaml\" -o \"./src/generated/api.ts\" && tsx ./src/afterSyncZodios.ts"
   },
   "type": "module",
   "devDependencies": {
@@ -24,12 +25,14 @@
     "@tailwindcss/forms": "0.5.9",
     "@tailwindcss/typography": "0.5.15",
     "@types/eslint": "^9.6.0",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "22.7.2",
     "autoprefixer": "10.4.20",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.36.0",
     "globals": "^15.0.0",
+    "openapi-zod-client": "^1.18.2",
     "postcss": "8.4.47",
     "prettier": "^3.3.3",
     "prettier-plugin-svelte": "^3.1.2",
@@ -47,8 +50,11 @@
   "dependencies": {
     "@floating-ui/dom": "1.6.11",
     "@tanstack/svelte-query": "^5.59.0",
+    "@zodios/core": "^10.9.6",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
+    "js-cookie": "^3.0.5",
+    "neverthrow": "^8.0.0",
     "orval": "^7.1.1",
     "timeago.js": "^4.0.2",
     "zod": "^3.23.8",

@@ -32,7 +32,12 @@ paths:
       summary: Create user account
       tags:
         - auth
-      parameters: []
+      parameters:
+        - name: x-custom-header
+          in: header
+          required: true
+          schema:
+            type: string
       operationId: signUp
       requestBody:
         description: Body
@@ -83,6 +88,14 @@ paths:
                   - email
                   - token
                   - tokenExpiresAt
+        '404':
+          description: '404'
+          content:
+            application/json:
+              schema:
+                type: string
+                enum:
+                  - Not found
         '409':
           description: '409'
           content:
@@ -96,13 +109,13 @@ paths:
                   - >-
                     The username you entered is already in use. Please use a
                     different username.
-  /log-in:
+  /sign-in:
     post:
-      summary: Log in user
+      summary: Sign in user
       tags:
         - auth
       parameters: []
-      operationId: logIn
+      operationId: signIn
       requestBody:
         description: Body
         content:
@@ -144,41 +157,52 @@ paths:
                   - email
                   - token
                   - tokenExpiresAt
-        '401':
-          description: '401'
+        '400':
+          description: '400'
           content:
             application/json:
               schema:
                 type: string
                 enum:
-                  - I
-                  - 'n'
-                  - v
-                  - a
-                  - l
-                  - i
-                  - d
-                  - ' '
-                  - u
-                  - s
-                  - e
-                  - r
-                  - 'n'
-                  - a
-                  - m
-                  - e
-                  - ' '
-                  - o
-                  - r
-                  - ' '
-                  - p
-                  - a
-                  - s
-                  - s
-                  - w
-                  - o
-                  - r
-                  - d
+                  - Invalid username, email, or password.
+  /me:
+    get:
+      summary: Get current user
+      tags:
+        - auth
+      parameters: []
+      operationId: getMe
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  username:
+                    type: string
+                  email:
+                    type: string
+                  token:
+                    type: string
+                  tokenExpiresAt:
+                    type: string
+                required:
+                  - id
+                  - username
+                  - email
+                  - token
+                  - tokenExpiresAt
+      security:
+        - bearerAuth: []
 info:
   title: My API
   version: 1.0.0
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

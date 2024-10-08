@@ -1,15 +1,38 @@
-import type { Actions } from '@sveltejs/kit'
-import { signUpBody } from '../orval/auth/auth.zod'
+import { fail, type Actions } from '@sveltejs/kit'
+import { sharedSignUp } from '../shared/sharedSignUp'
+import type { PageServerLoad } from './$types.js'
 
-export const actions: Actions = {
-  default: async ({ cookies, request }) => {
-    const data = Object.fromEntries(await request.formData())
+const lastMessage = 'lastMessage'
 
-    signUpBody.parse(data)
+export const load: PageServerLoad = async ({ cookies }) => {
+  return {
+    lastMessage: lastMessage,
+  }
+}
+
+export const actions = {
+  signUp: async ({ request }) => {
+    const formData = await request.formData()
+
+    const result = await sharedSignUp(formData)
+
+    if (result.isErr()) {
+      return fail(result.error.status, {
+        message: result.error.body,
+      })
+    }
 
     return {
-      status: 200,
-      body: 'Hello world!',
+      status: result.value.status,
+      body: result.value.body,
     }
   },
+} satisfies Actions
+
+function isSignUpActionData(
+  value: any,
+): value is { status: number; body: any } {
+  return value.status !== undefined && value.body !== undefined
 }
+
+export type IndexPageActions = typeof actions
