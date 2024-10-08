@@ -1,7 +1,7 @@
 <script lang="ts">
   let ref: HTMLElement | null = null
 
-  export let loading: boolean = false
+  export let loading: boolean
 </script>
 
 {#if loading}

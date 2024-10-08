@@ -4,6 +4,88 @@
  * My API
  * OpenAPI spec version: 1.0.0
  */
+export type DeleteTodo404 = typeof DeleteTodo404[keyof typeof DeleteTodo404];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const DeleteTodo404 = {
+  'To-do_not_found': 'To-do not found',
+} as const;
+
+export type DeleteTodo403 = typeof DeleteTodo403[keyof typeof DeleteTodo403];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const DeleteTodo403 = {
+  'You_are_not_authorized_to_update_this_to-do': 'You are not authorized to update this to-do',
+} as const;
+
+export type DeleteTodo204 = {
+  createdAt: string;
+  description: string;
+  /** @nullable */
+  doneAt: string | null;
+  id: number;
+  updatedAt: string;
+  userId: number;
+};
+
+export type UpdateTodo404 = typeof UpdateTodo404[keyof typeof UpdateTodo404];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const UpdateTodo404 = {
+  'To-do_not_found': 'To-do not found',
+} as const;
+
+export type UpdateTodo403 = typeof UpdateTodo403[keyof typeof UpdateTodo403];
+
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const UpdateTodo403 = {
+  'You_are_not_authorized_to_update_this_to-do': 'You are not authorized to update this to-do',
+} as const;
+
+export type UpdateTodo200 = {
+  createdAt: string;
+  description: string;
+  /** @nullable */
+  doneAt: string | null;
+  id: number;
+  updatedAt: string;
+  userId: number;
+};
+
+export type UpdateTodoBody = {
+  description?: string;
+  /** @nullable */
+  doneAt: string | null;
+};
+
+export type CreateTodo200 = {
+  createdAt: string;
+  description: string;
+  /** @nullable */
+  doneAt: string | null;
+  id: number;
+  updatedAt: string;
+  userId: number;
+};
+
+export type CreateTodoBody = {
+  description: string;
+};
+
+export type GetUserTodos200Item = {
+  createdAt: string;
+  description: string;
+  /** @nullable */
+  doneAt: string | null;
+  id: number;
+  updatedAt: string;
+  userId: number;
+};
+
 export type GetMe200 = {
   email: string;
   id: number;

@@ -1,51 +1,53 @@
 <script lang="ts">
   import type { SvelteComponent } from 'svelte'
 
-  import { ListBox, ListBoxItem, getModalStore } from '@skeletonlabs/skeleton'
+  import { useCreateTodoMutation } from '$lib/svelte-query/domains/todos/useCreateTodoMutation'
+  import { getModalStore } from '@skeletonlabs/skeleton'
 
-  // Props
-  /** Exposes parent props to this component. */
   export let parent: SvelteComponent
 
-  // Local
-  let flavor = 'chocolate'
   const modalStore = getModalStore()
 
-  // Handle Form Submission
-  function onFormSubmit(): void {
-    if ($modalStore[0].response) $modalStore[0].response(flavor)
-    modalStore.close()
-  }
+  const createTodoMutation = useCreateTodoMutation()
 
-  // Base Classes
-  const cBase = 'card p-4 w-modal shadow-xl space-y-4'
-  const cHeader = 'text-2xl font-bold'
+  let descriptionInput = ''
+
+  function handleSubmit() {
+    $createTodoMutation.mutate(
+      {
+        description: descriptionInput,
+      },
+      {
+        onSuccess: () => {
+          modalStore.close()
+        },
+      },
+    )
+  }
 </script>
 
-<!-- @component This example creates a simple form modal. -->
-
 {#if $modalStore[0]}
-  <div class="modal-example-form {cBase}">
-    <header class={cHeader}>{$modalStore[0].title ?? '(title missing)'}</header>
-    <article>{$modalStore[0].body ?? '(body missing)'}</article>
-    <ListBox class="border border-surface-500 p-4 rounded-container-token">
-      <ListBoxItem bind:group={flavor} name="chocolate" value="chocolate"
-        >Chocolate</ListBoxItem
+  <div class="modal-example-form card w-modal space-y-4 p-4 shadow-xl">
+    <header class="text-2xl font-bold">
+      {$modalStore[0].title ?? 'Create to-do item'}
+    </header>
+    <textarea
+      bind:value={descriptionInput}
+      placeholder="Enter a to-do item"
+      class="input resize-none"
+      on:keydown={(e) => {
+        if (e.key === 'Enter') {
+          handleSubmit()
+        }
+      }}
+    />
+    <footer class="modal-footer">
+      <button class="btn {parent.buttonPositive}" on:click={handleSubmit}
+        >Save</button
       >
-      <ListBoxItem bind:group={flavor} name="vanilla" value="vanilla"
-        >Vanilla</ListBoxItem
+      <button class="btn {parent.buttonNeutral}" on:click={parent.onClose}
+        >{parent.buttonTextCancel}</button
       >
-      <ListBoxItem bind:group={flavor} name="strawberry" value="strawberry"
-        >Strawberry</ListBoxItem
-      >
-      <ListBoxItem bind:group={flavor} name="peach" value="peach"
-        >Peach</ListBoxItem
-      >
-    </ListBox>
-    <!-- prettier-ignore -->
-    <footer class="modal-footer {parent.regionFooter}">
-        <button class="btn {parent.buttonNeutral}" on:click={parent.onClose}>{parent.buttonTextCancel}</button>
-        <button class="btn {parent.buttonPositive}" on:click={onFormSubmit}>Select Flavors</button>
     </footer>
   </div>
 {/if}

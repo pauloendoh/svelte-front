@@ -3,6 +3,7 @@
   import { useAuthUserStore } from '$lib/stores/useAuthUserStore'
   import { AppBar, AppShell, getModalStore } from '@skeletonlabs/skeleton'
   import SaveTodoModal from '../modals/SaveTodoModal.svelte'
+  import TodoList from './TodoList/TodoList.svelte'
 
   let user = useAuthUserStore()
 
@@ -33,16 +34,22 @@
   </svelte:fragment>
 
   <div class="container mx-auto mt-10 flex justify-center">
-    <button
-      class="variant-filled btn"
-      on:click={() => {
-        modalStore.trigger({
-          type: 'component',
-          component: SaveTodoModal.name,
-        })
-      }}
-    >
-      Click me
-    </button>
+    <div class="w-full min-w-[360px] max-w-[600px]">
+      <button
+        class="variant-filled btn"
+        on:click={() => {
+          modalStore.trigger({
+            type: 'component',
+            component: SaveTodoModal.name,
+          })
+        }}
+      >
+        + Add
+      </button>
+      <div class="mt-8 flex flex-col gap-10">
+        <TodoList type="to-do" />
+        <TodoList type="completed" />
+      </div>
+    </div>
   </div>
 </AppShell>

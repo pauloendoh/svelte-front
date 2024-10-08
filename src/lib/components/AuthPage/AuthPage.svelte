@@ -9,9 +9,6 @@
 
 <div class="container mx-auto flex h-full items-center justify-center">
   <div class="flex flex-col items-center space-y-4">
-    {JSON.stringify({
-      username: $authUser?.username,
-    })}
     {#if $authUser}
       <button
         class="variant-filled btn"
