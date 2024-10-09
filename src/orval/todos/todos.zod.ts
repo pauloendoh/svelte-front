@@ -46,7 +46,7 @@ export const updateTodoParams = zod.object({
 
 export const updateTodoBody = zod.object({
   "description": zod.string().optional(),
-  "doneAt": zod.string().datetime().nullable()
+  "doneAt": zod.string().datetime().nullish()
 })
 
 export const updateTodo200Response = zod.object({

@@ -2,7 +2,7 @@
   import '../app.postcss'
   // Floating UI for Popups
   import LoadingScreen from '$lib/components/_shared/utils/LoadingScreen/LoadingScreen.svelte'
-  import SaveTodoModal from '$lib/components/modals/SaveTodoModal.svelte'
+  import SaveTodoModal from '$lib/components/modals/SaveTodoModal/SaveTodoModal.svelte'
   import { useCheckAuthCookieOrLogout } from '$lib/hooks/useCheckAuthCookieOrLogout'
   import {
     arrow,

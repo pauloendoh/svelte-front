@@ -1,15 +1,15 @@
 <script lang="ts">
   import { useLogout } from '$lib/hooks/useLogout'
   import { useAuthUserStore } from '$lib/stores/useAuthUserStore'
-  import { AppBar, AppShell, getModalStore } from '@skeletonlabs/skeleton'
-  import SaveTodoModal from '../modals/SaveTodoModal.svelte'
+  import { AppBar, AppShell } from '@skeletonlabs/skeleton'
+  import { useSaveTodoModalStore } from '../modals/SaveTodoModal/useSaveTodoModalStore'
   import TodoList from './TodoList/TodoList.svelte'
 
   let user = useAuthUserStore()
 
   const signOut = useLogout()
 
-  const modalStore = getModalStore()
+  const { openModal } = useSaveTodoModalStore()
 </script>
 
 <AppShell class="HomePage" slotPageHeader="sticky top-0 z-10">
@@ -34,13 +34,12 @@
   </svelte:fragment>
 
   <div class="container mx-auto mt-10 flex justify-center">
-    <div class="w-full min-w-[360px] max-w-[600px]">
+    <div class="w-full min-w-[360px] max-w-[480px]">
       <button
         class="variant-filled btn"
         on:click={() => {
-          modalStore.trigger({
-            type: 'component',
-            component: SaveTodoModal.name,
+          openModal({
+            description: '',
           })
         }}
       >

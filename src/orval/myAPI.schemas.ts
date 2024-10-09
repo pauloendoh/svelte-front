@@ -59,7 +59,7 @@ export type UpdateTodo200 = {
 export type UpdateTodoBody = {
   description?: string;
   /** @nullable */
-  doneAt: string | null;
+  doneAt?: string | null;
 };
 
 export type CreateTodo200 = {

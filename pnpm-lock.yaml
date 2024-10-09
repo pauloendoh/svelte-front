@@ -42,6 +42,9 @@ importers:
         specifier: ^3.4.0
         version: 3.4.0(zod@3.23.8)
     devDependencies:
+      '@iconify/svelte':
+        specifier: ^4.0.2
+        version: 4.0.2(svelte@4.2.19)
       '@skeletonlabs/skeleton':
         specifier: 2.10.2
         version: 2.10.2(svelte@4.2.19)
@@ -714,6 +717,14 @@ packages:
   '@ibm-cloud/openapi-ruleset@1.23.2':
     resolution: {integrity: sha512-yNdrVw9OZ8AHb1FR+o4k1ST5c+kXOKOMKYkRi1nFBtOlOuAZU+FMym9tnFa3lOS9+ePipul5DBJj3Hhd70vFpw==}
     engines: {node: '>=16.0.0'}
+
+  '@iconify/svelte@4.0.2':
+    resolution: {integrity: sha512-6BSrU85FzGfhQD3bTXpnkCCvBAglEt8T9QednVnXAYm4C+d3464y+pYMzhQNJm5mPId2cuiw+2wXlDflXllHDw==}
+    peerDependencies:
+      svelte: '>4.0.0'
+
+  '@iconify/types@2.0.0':
+    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -3598,6 +3609,13 @@ snapshots:
       validator: 13.12.0
     transitivePeerDependencies:
       - encoding
+
+  '@iconify/svelte@4.0.2(svelte@4.2.19)':
+    dependencies:
+      '@iconify/types': 2.0.0
+      svelte: 4.2.19
+
+  '@iconify/types@2.0.0': {}
 
   '@isaacs/cliui@8.0.2':
     dependencies:

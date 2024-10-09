@@ -2,37 +2,53 @@
   import type { SvelteComponent } from 'svelte'
 
   import { useCreateTodoMutation } from '$lib/svelte-query/domains/todos/useCreateTodoMutation'
-  import { getModalStore } from '@skeletonlabs/skeleton'
+  import { useUpdateTodoMutation } from '$lib/svelte-query/domains/todos/useUpdateTodoMutation'
+  import { useSaveTodoModalStore } from './useSaveTodoModalStore'
 
   export let parent: SvelteComponent
 
-  const modalStore = getModalStore()
+  const { value, isOpen, closeModal } = useSaveTodoModalStore()
 
-  const createTodoMutation = useCreateTodoMutation()
-
-  let descriptionInput = ''
+  const submitCreate = useCreateTodoMutation()
+  const submitUpdate = useUpdateTodoMutation()
 
   function handleSubmit() {
-    $createTodoMutation.mutate(
+    if ($value.id) {
+      $submitUpdate.mutate(
+        {
+          todoId: $value.id,
+          data: {
+            description: $value.description,
+          },
+        },
+        {
+          onSuccess: () => {
+            closeModal()
+          },
+        },
+      )
+      return
+    }
+    $submitCreate.mutate(
       {
-        description: descriptionInput,
+        description: $value.description,
       },
       {
         onSuccess: () => {
-          modalStore.close()
+          closeModal()
         },
       },
     )
   }
 </script>
 
-{#if $modalStore[0]}
+{#if $isOpen}
   <div class="modal-example-form card w-modal space-y-4 p-4 shadow-xl">
     <header class="text-2xl font-bold">
-      {$modalStore[0].title ?? 'Create to-do item'}
+      {$value.id ? 'Edit to-do item' : 'Create to-do item'}
     </header>
     <textarea
-      bind:value={descriptionInput}
+      bind:value={$value.description}
       placeholder="Enter a to-do item"
       class="input resize-none"
       on:keydown={(e) => {

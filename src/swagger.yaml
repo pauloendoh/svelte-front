@@ -316,8 +316,6 @@ paths:
                   type: string
                   format: date-time
                   nullable: true
-              required:
-                - doneAt
       responses:
         '200':
           description: '200'
