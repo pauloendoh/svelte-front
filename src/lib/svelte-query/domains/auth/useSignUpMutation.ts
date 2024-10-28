@@ -15,9 +15,9 @@ export const useSignUpMutation = () => {
     mutationFn: async (data: SignUpBody) => {
       return signUp(data, {
         headers: {
-          'x-custom-header': 'xd',
+          'x-custom-header': 'testing ts-rest custom header',
         } satisfies SignUpHeader,
-      }).then((res) => res.data)
+      })
     },
     onSuccess: (returned) => {
       authUserStore.set(returned)

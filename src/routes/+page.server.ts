@@ -17,7 +17,7 @@ export const actions = {
     const result = await sharedSignUp(formData)
 
     if (result.isErr()) {
-      return fail(result.error.status, {
+      return fail(result.error.status ?? 500, {
         message: result.error.body,
       })
     }
@@ -28,11 +28,5 @@ export const actions = {
     }
   },
 } satisfies Actions
-
-function isSignUpActionData(
-  value: any,
-): value is { status: number; body: any } {
-  return value.status !== undefined && value.body !== undefined
-}
 
 export type IndexPageActions = typeof actions

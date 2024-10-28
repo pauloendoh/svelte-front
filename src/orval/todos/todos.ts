@@ -4,11 +4,6 @@
  * My API
  * OpenAPI spec version: 1.0.0
  */
-import axios from 'axios'
-import type {
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios'
 import type {
   CreateTodo200,
   CreateTodoBody,
@@ -17,53 +12,62 @@ import type {
   UpdateTodo200,
   UpdateTodoBody
 } from '../myAPI.schemas'
+import { myRequest } from '../../lib/utils/myAxios';
 
+
+type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
 
 
   /**
  * @summary Get user todos
  */
-export const getUserTodos = <TData = AxiosResponse<GetUserTodos200Item[]>>(
-     options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.get(
-      `http://localhost:3123/todos`,options
-    );
-  }
-/**
+export const getUserTodos = (
+    
+ options?: SecondParameter<typeof myRequest>,) => {
+      return myRequest<GetUserTodos200Item[]>(
+      {url: `/todos`, method: 'GET'
+    },
+      options);
+    }
+  /**
  * @summary Create todo
  */
-export const createTodo = <TData = AxiosResponse<CreateTodo200>>(
-    createTodoBody: CreateTodoBody, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.post(
-      `http://localhost:3123/todos`,
-      createTodoBody,options
-    );
-  }
-/**
+export const createTodo = (
+    createTodoBody: CreateTodoBody,
+ options?: SecondParameter<typeof myRequest>,) => {
+      return myRequest<CreateTodo200>(
+      {url: `/todos`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: createTodoBody
+    },
+      options);
+    }
+  /**
  * @summary Update todo
  */
-export const updateTodo = <TData = AxiosResponse<UpdateTodo200>>(
+export const updateTodo = (
     todoId: number | null,
-    updateTodoBody: UpdateTodoBody, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.patch(
-      `http://localhost:3123/todos/${todoId}`,
-      updateTodoBody,options
-    );
-  }
-/**
+    updateTodoBody: UpdateTodoBody,
+ options?: SecondParameter<typeof myRequest>,) => {
+      return myRequest<UpdateTodo200>(
+      {url: `/todos/${todoId}`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: updateTodoBody
+    },
+      options);
+    }
+  /**
  * @summary Delete todo
  */
-export const deleteTodo = <TData = AxiosResponse<DeleteTodo204>>(
-    todoId: number | null, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.delete(
-      `http://localhost:3123/todos/${todoId}`,options
-    );
-  }
-export type GetUserTodosResult = AxiosResponse<GetUserTodos200Item[]>
-export type CreateTodoResult = AxiosResponse<CreateTodo200>
-export type UpdateTodoResult = AxiosResponse<UpdateTodo200>
-export type DeleteTodoResult = AxiosResponse<DeleteTodo204>
+export const deleteTodo = (
+    todoId: number | null,
+ options?: SecondParameter<typeof myRequest>,) => {
+      return myRequest<DeleteTodo204>(
+      {url: `/todos/${todoId}`, method: 'DELETE'
+    },
+      options);
+    }
+  export type GetUserTodosResult = NonNullable<Awaited<ReturnType<typeof getUserTodos>>>
+export type CreateTodoResult = NonNullable<Awaited<ReturnType<typeof createTodo>>>
+export type UpdateTodoResult = NonNullable<Awaited<ReturnType<typeof updateTodo>>>
+export type DeleteTodoResult = NonNullable<Awaited<ReturnType<typeof deleteTodo>>>

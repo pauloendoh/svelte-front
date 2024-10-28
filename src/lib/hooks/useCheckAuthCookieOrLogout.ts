@@ -33,8 +33,8 @@ export const useCheckAuthCookieOrLogout = () => {
         Authorization: `Bearer ${user.token}`,
       },
     })
-      .then((res) => {
-        authUserStore.set(res.data)
+      .then((data) => {
+        authUserStore.set(data)
       })
       .catch((err) => {
         alert(err.message)

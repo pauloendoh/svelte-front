@@ -1,5 +1,4 @@
 import { defineConfig } from 'orval'
-import { myEnvs } from './src/myEnvs'
 
 export default defineConfig({
   main: {
@@ -7,7 +6,13 @@ export default defineConfig({
     output: {
       mode: 'tags-split',
       target: './src/orval',
-      baseUrl: myEnvs.API_URL,
+
+      override: {
+        mutator: {
+          path: './src/lib/utils/myAxios.ts',
+          name: 'myRequest',
+        },
+      },
     },
   },
   zod: {

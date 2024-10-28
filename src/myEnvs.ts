@@ -1,10 +1,8 @@
-import { config } from 'dotenv'
+import * as envs from '$env/static/public'
 import { z } from 'zod'
 
-config()
-
 const envSchema = z.object({
-  API_URL: z.string().url()
+  PUBLIC_API_URL: z.string().url(),
 })
 
-export const myEnvs = envSchema.parse(process.env)
+export const myEnvs = envSchema.parse(envs)

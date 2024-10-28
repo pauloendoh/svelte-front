@@ -21,7 +21,11 @@
     Toast,
   } from '@skeletonlabs/skeleton'
   import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query'
+  import axios from 'axios'
   import { onMount } from 'svelte'
+  import { myEnvs } from '../myEnvs'
+
+  axios.defaults.baseURL = myEnvs.PUBLIC_API_URL
 
   storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow })
 

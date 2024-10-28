@@ -19,7 +19,7 @@ export const useUpdateTodoMutation = () => {
         headers: {
           Authorization: getAuthorizationToken(),
         },
-      }).then((res) => res.data)
+      })
     },
     onSuccess: (saved) => {
       queryClient.setQueryData<(typeof saved)[]>(queryKeys.todos, (curr) =>

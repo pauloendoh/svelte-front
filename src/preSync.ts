@@ -4,11 +4,13 @@ import { fileURLToPath } from 'node:url'
 
 import axios from 'axios'
 import fs from 'fs'
-import { myEnvs } from './myEnvs'
+import { myOrvalEnvs } from './myOrvalEnvs'
 
 const preSync = async () => {
   try {
-    const response = await axios.get<string>(myEnvs.API_URL + '/swagger.yaml')
+    const response = await axios.get<string>(
+      myOrvalEnvs.PUBLIC_API_URL + '/swagger.yaml',
+    )
 
     // https://stackoverflow.com/a/50052194
     const __dirname = dirname(fileURLToPath(import.meta.url))

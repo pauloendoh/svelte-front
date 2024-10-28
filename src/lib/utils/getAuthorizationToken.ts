@@ -6,7 +6,7 @@ export function getAuthorizationToken() {
   const userCookieStr = myCookie.get(cookieKeys.user)
 
   if (!userCookieStr) {
-    throw new Error('No user cookie found')
+    return ''
   }
 
   const user: SignUp201 = JSON.parse(userCookieStr)

@@ -12,7 +12,7 @@ export const useLogInMutation = () => {
 
   const mutation = createMutation({
     mutationFn: async (data: LogInBody) => {
-      return logIn(data).then((res) => res.data)
+      return logIn(data)
     },
     onSuccess: (user) => {
       authUserStore.set(user)

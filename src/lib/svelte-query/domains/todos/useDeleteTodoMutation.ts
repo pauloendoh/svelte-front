@@ -18,7 +18,7 @@ export const useDeleteTodoMutation = () => {
         headers: {
           Authorization: getAuthorizationToken(),
         },
-      }).then((res) => res.data)
+      })
     },
     onSuccess: (returned, todoId) => {
       queryClient.setQueryData<(typeof returned)[]>(queryKeys.todos, (curr) =>

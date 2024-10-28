@@ -1,12 +1,13 @@
 import { getZodErrorMessage } from '$lib/utils/zod/getZodErrorMessage'
-import { myApi } from '$lib/utils/zodios/myApi'
+import { isAxiosError } from 'axios'
 import { err, ok } from 'neverthrow'
-import { schemas } from '../generated/api'
+import { signUp } from '../orval/auth/auth'
+import { signUpBody } from '../orval/auth/auth.zod'
 
 export const sharedSignUp = async (formData: FormData) => {
   const data = Object.fromEntries(formData)
 
-  const validationRes = schemas.signUp_Body.safeParse(data)
+  const validationRes = signUpBody.safeParse(data)
 
   if (validationRes.error) {
     return err({
@@ -15,21 +16,30 @@ export const sharedSignUp = async (formData: FormData) => {
     })
   }
 
-  const signUpResult = await myApi.signUp(validationRes.data, {
+  const signUpResult = await signUp(validationRes.data, {
     headers: {
       'x-custom-header': 'custom-header-value',
     },
   })
-
-  if (signUpResult.isErr()) {
-    return err({
-      status: signUpResult.error.response.status,
-      body: signUpResult.error.response.data,
+    .then((data) => {
+      return ok({
+        status: 200,
+        body: data,
+      })
     })
-  }
+    .catch((error) => {
+      if (isAxiosError(error)) {
+        return err({
+          status: error.response?.status,
+          body: error.response?.data,
+        })
+      }
 
-  return ok({
-    status: 201,
-    body: signUpResult.value,
-  })
+      return err({
+        status: 500,
+        body: 'Internal server error',
+      })
+    })
+
+  return signUpResult
 }

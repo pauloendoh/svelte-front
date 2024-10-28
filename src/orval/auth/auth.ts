@@ -4,11 +4,6 @@
  * My API
  * OpenAPI spec version: 1.0.0
  */
-import axios from 'axios'
-import type {
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios'
 import type {
   GetMe200,
   LogIn200,
@@ -16,41 +11,49 @@ import type {
   SignUp201,
   SignUpBody
 } from '../myAPI.schemas'
+import { myRequest } from '../../lib/utils/myAxios';
 
+
+type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
 
 
   /**
  * @summary Create user account
  */
-export const signUp = <TData = AxiosResponse<SignUp201>>(
-    signUpBody: SignUpBody, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.post(
-      `http://localhost:3123/sign-up`,
-      signUpBody,options
-    );
-  }
-/**
+export const signUp = (
+    signUpBody: SignUpBody,
+ options?: SecondParameter<typeof myRequest>,) => {
+      return myRequest<SignUp201>(
+      {url: `/sign-up`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: signUpBody
+    },
+      options);
+    }
+  /**
  * @summary Log in user
  */
-export const logIn = <TData = AxiosResponse<LogIn200>>(
-    logInBody: LogInBody, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.post(
-      `http://localhost:3123/log-in`,
-      logInBody,options
-    );
-  }
-/**
+export const logIn = (
+    logInBody: LogInBody,
+ options?: SecondParameter<typeof myRequest>,) => {
+      return myRequest<LogIn200>(
+      {url: `/log-in`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: logInBody
+    },
+      options);
+    }
+  /**
  * @summary Get current user
  */
-export const getMe = <TData = AxiosResponse<GetMe200>>(
-     options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.get(
-      `http://localhost:3123/me`,options
-    );
-  }
-export type SignUpResult = AxiosResponse<SignUp201>
-export type LogInResult = AxiosResponse<LogIn200>
-export type GetMeResult = AxiosResponse<GetMe200>
+export const getMe = (
+    
+ options?: SecondParameter<typeof myRequest>,) => {
+      return myRequest<GetMe200>(
+      {url: `/me`, method: 'GET'
+    },
+      options);
+    }
+  export type SignUpResult = NonNullable<Awaited<ReturnType<typeof signUp>>>
+export type LogInResult = NonNullable<Awaited<ReturnType<typeof logIn>>>
+export type GetMeResult = NonNullable<Awaited<ReturnType<typeof getMe>>>

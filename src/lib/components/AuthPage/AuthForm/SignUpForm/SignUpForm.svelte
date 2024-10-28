@@ -96,7 +96,7 @@
       <a
         href="/"
         class="text-blue-500 hover:underline"
-        on:click|preventDefault={onChangeToSignIn}>Sign In</a
+        on:click|preventDefault={onChangeToSignIn}>Log In</a
       >
     </p>
   </form>

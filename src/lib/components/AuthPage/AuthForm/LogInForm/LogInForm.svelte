@@ -65,14 +65,14 @@
     </label>
 
     <button class="variant-filled-secondary btn w-full" type="submit"
-      >Sign In</button
+      >Log In</button
     >
     <p class="text-center">
       Don't have an account?
       <a
         href="/"
         class="text-blue-500 hover:underline"
-        on:click|preventDefault={onChangeToSignUp}>Sign In</a
+        on:click|preventDefault={onChangeToSignUp}>Sign Up</a
       >
     </p>
   </form>
