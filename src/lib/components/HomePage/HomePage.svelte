@@ -7,7 +7,7 @@
 
   let user = useAuthUserStore()
 
-  const signOut = useLogout()
+  const logOut = useLogout()
 
   const { openModal } = useSaveTodoModalStore()
 </script>
@@ -25,8 +25,8 @@
           <div>
             {$user?.username}
           </div>
-          <button class="variant-filled btn btn-sm" on:click={signOut}>
-            Sign out
+          <button class="variant-filled btn btn-sm" on:click={logOut}>
+            Log out
           </button>
         </div>
       </svelte:fragment>

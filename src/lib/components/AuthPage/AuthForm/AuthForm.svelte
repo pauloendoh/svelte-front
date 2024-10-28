@@ -1,10 +1,10 @@
 <script lang="ts">
   import LoadingScreen from '$lib/components/_shared/utils/LoadingScreen/LoadingScreen.svelte'
   import { useCheckAuthCookieOrLogout } from '$lib/hooks/useCheckAuthCookieOrLogout'
-  import SignInForm from './SignInForm/SignInForm.svelte'
+  import LogInForm from './LogInForm/LogInForm.svelte'
   import SignUpForm from './SignUpForm/SignUpForm.svelte'
 
-  let formType: 'signUp' | 'signIn' = 'signUp'
+  let formType: 'signUp' | 'logIn' = 'signUp'
   const { loadingCheckAuthCookie } = useCheckAuthCookieOrLogout()
 </script>
 
@@ -13,11 +13,11 @@
 {:else if formType === 'signUp'}
   <SignUpForm
     onChangeToSignIn={() => {
-      formType = 'signIn'
+      formType = 'logIn'
     }}
   />
 {:else}
-  <SignInForm
+  <LogInForm
     onChangeToSignUp={() => {
       formType = 'signUp'
     }}

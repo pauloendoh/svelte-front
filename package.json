@@ -11,7 +11,7 @@
     "test": "vitest",
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
-    "sync": "npx tsx ./src/preSync.ts && npx orval --config ./orval.config.ts && check",
+    "sync": "npx tsx ./src/preSync.ts && npx orval --config ./orval.config.ts && svelte-check",
     "sync:clean": "npx tsx ./src/cleanOrval.ts && npm run sync",
     "sync:zodios": "openapi-zod-client \"./src/swagger.yaml\" -o \"./src/generated/api.ts\" && tsx ./src/afterSyncZodios.ts"
   },

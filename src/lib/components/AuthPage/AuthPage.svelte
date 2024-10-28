@@ -16,7 +16,7 @@
           logout()
         }}
       >
-        Sign Out
+        Log out
       </button>
     {/if}
 

@@ -3,16 +3,16 @@ import { getZodErrorMessage } from '$lib/utils/zod/getZodErrorMessage'
 import { getToastStore } from '@skeletonlabs/skeleton'
 import { createMutation } from '@tanstack/svelte-query'
 import { isAxiosError } from 'axios'
-import { signIn } from '../../../../orval/auth/auth'
-import type { SignInBody } from '../../../../orval/myAPI.schemas'
+import { logIn } from '../../../../orval/auth/auth'
+import type { LogInBody } from '../../../../orval/myAPI.schemas'
 
-export const useSignInMutation = () => {
+export const useLogInMutation = () => {
   const authUserStore = useAuthUserStore()
   const toastStore = getToastStore()
 
   const mutation = createMutation({
-    mutationFn: async (data: SignInBody) => {
-      return signIn(data).then((res) => res.data)
+    mutationFn: async (data: LogInBody) => {
+      return logIn(data).then((res) => res.data)
     },
     onSuccess: (user) => {
       authUserStore.set(user)

@@ -109,13 +109,13 @@ paths:
                   - >-
                     The username you entered is already in use. Please use a
                     different username.
-  /sign-in:
+  /log-in:
     post:
-      summary: Sign in user
+      summary: Log in user
       tags:
         - auth
       parameters: []
-      operationId: signIn
+      operationId: logIn
       requestBody:
         description: Body
         content:

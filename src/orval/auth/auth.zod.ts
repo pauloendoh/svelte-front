@@ -42,20 +42,20 @@ export const signUp404Response = zod.enum(['Not found'])
 export const signUp409Response = zod.enum(['The email address you entered is already in use. Please use a different email address.', 'The username you entered is already in use. Please use a different username.'])
 
 /**
- * @summary Sign in user
+ * @summary Log in user
  */
-export const signInBodyUsernameOrEmailMin = 3;
+export const logInBodyUsernameOrEmailMin = 3;
 
-export const signInBodyUsernameOrEmailMax = 16;
-export const signInBodyPasswordMin = 6;
+export const logInBodyUsernameOrEmailMax = 16;
+export const logInBodyPasswordMin = 6;
 
 
-export const signInBody = zod.object({
-  "usernameOrEmail": zod.string().min(signInBodyUsernameOrEmailMin).max(signInBodyUsernameOrEmailMax),
-  "password": zod.string().min(signInBodyPasswordMin)
+export const logInBody = zod.object({
+  "usernameOrEmail": zod.string().min(logInBodyUsernameOrEmailMin).max(logInBodyUsernameOrEmailMax),
+  "password": zod.string().min(logInBodyPasswordMin)
 })
 
-export const signIn200Response = zod.object({
+export const logIn200Response = zod.object({
   "id": zod.number(),
   "username": zod.string(),
   "email": zod.string(),
@@ -63,7 +63,7 @@ export const signIn200Response = zod.object({
   "tokenExpiresAt": zod.string()
 })
 
-export const signIn400Response = zod.enum(['Invalid username, email, or password.'])
+export const logIn400Response = zod.enum(['Invalid username, email, or password.'])
 
 /**
  * @summary Get current user

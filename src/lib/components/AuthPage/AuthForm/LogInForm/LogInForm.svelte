@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { useSignInMutation } from '$lib/svelte-query/domains/auth/useSignInMutation'
+  import { useLogInMutation } from '$lib/svelte-query/domains/auth/useLogInMutation'
   import { getZodErrorMessage } from '$lib/utils/zod/getZodErrorMessage'
   import { getToastStore } from '@skeletonlabs/skeleton'
   import { onMount } from 'svelte'
-  import { signInBody } from '../../../../../orval/auth/auth.zod'
+  import { logInBody } from '../../../../../orval/auth/auth.zod'
 
   export let ref: HTMLElement | undefined = undefined
   export let onChangeToSignUp: () => void
@@ -14,7 +14,7 @@
 
   const toastStore = getToastStore()
 
-  const signInMutation = useSignInMutation()
+  const signInMutation = useLogInMutation()
 </script>
 
 <div class="SignInForm">
@@ -24,7 +24,7 @@
     class="card flex w-[360px] flex-col gap-4 p-4"
     on:submit|preventDefault={(e) => {
       const raw = Object.fromEntries(new FormData(e.currentTarget))
-      const { error, data } = signInBody.safeParse(raw)
+      const { error, data } = logInBody.safeParse(raw)
 
       if (error) {
         const message = getZodErrorMessage(error)

@@ -94,15 +94,15 @@ export type GetMe200 = {
   username: string;
 };
 
-export type SignIn400 = typeof SignIn400[keyof typeof SignIn400];
+export type LogIn400 = typeof LogIn400[keyof typeof LogIn400];
 
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const SignIn400 = {
+export const LogIn400 = {
   'Invalid_username,_email,_or_password': 'Invalid username, email, or password.',
 } as const;
 
-export type SignIn200 = {
+export type LogIn200 = {
   email: string;
   id: number;
   token: string;
@@ -110,7 +110,7 @@ export type SignIn200 = {
   username: string;
 };
 
-export type SignInBody = {
+export type LogInBody = {
   /** @minLength 6 */
   password: string;
   /**
